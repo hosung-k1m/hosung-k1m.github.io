@@ -30,48 +30,36 @@ const Spaceman = ({ scale, position }) => {
 };
 
 const SpacemanCanvas = ({ scrollContainer }) => {
-    const [rotationX, setRotationX] = useState(0);
-    const [rotationY, setRotationY] = useState(0);
-    const [scale, setScale] = useState([2, 2, 2]);
+    const [scale, setScale] = useState([2, 2, 2]); // Increased scale
     const [position, setPosition] = useState([0.2, -0.7, 0]);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollTop = scrollContainer.current.scrollTop;
-            const rotationXValue = scrollTop * -0.0006;
-            const rotationYValue = scrollTop * -0.00075;
-            setRotationX(rotationXValue);
-            setRotationY(rotationYValue);
-        };
-
         const handleResize = () => {
             if (window.innerWidth < 768) {
-                setScale([1, 1, 1]);
+                setScale([1.5, 1.5, 1.5]); // Increased scale for smaller screens
                 setPosition([0.2, -0.1, 0]);
             } else if (window.innerWidth < 1024) {
-                setScale([1.33, 1.33, 1.33]);
+                setScale([2, 2, 2]); // Increased scale for medium screens
                 setPosition([0.2, -0.3, 0]);
             } else if (window.innerWidth < 1280) {
-                setScale([1.5, 1.5, 1.5]);
+                setScale([2, 2, 2]); // Increased scale for larger screens
                 setPosition([0.2, -0.4, 0]);
             } else if (window.innerWidth < 1536) {
-                setScale([1.66, 1.66, 1.66]);
+                setScale([2, 2, 2]); // Increased scale for larger screens
                 setPosition([0.2, -0.5, 0]);
             } else {
-                setScale([2, 2, 2]);
+                setScale([2, 2, 2]); // Increased scale for largest screens
                 setPosition([0.2, -0.7, 0]);
             }
         };
 
         handleResize();
-        window.addEventListener("scroll", handleScroll);
         window.addEventListener("resize", handleResize);
 
         return () => {
-            window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("resize", handleResize);
         };
-    }, [scrollContainer]);
+    }, []);
 
     return (
         <Canvas
@@ -95,8 +83,6 @@ const SpacemanCanvas = ({ scrollContainer }) => {
                 />
 
                 <Spaceman
-                    rotationX={rotationX}
-                    rotationY={rotationY}
                     scale={scale}
                     position={position}
                 />
