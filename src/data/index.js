@@ -6,12 +6,12 @@ import {
 
 export const navLinks = [
   {
-    id: "hero",
-    title: "Hero",
+    id: "aboutMe",
+    title: "About Me",
   },
   {
     id: "portfolio",
-    title: "Portfolio",
+    title: "Projects",
   },
   {
     id: "experience",
