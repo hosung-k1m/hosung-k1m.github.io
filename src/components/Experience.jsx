@@ -37,9 +37,9 @@ const ExperienceCard = ({ experience, onClick, isActive, isMobile }) => {
 };
 
 const ExperienceDetails = ({ experience }) => {
-  // Process the details to make highlighted words bold
+  // Process the details to make highlighted words use the sky-300 color
   const processDetail = (detail) => {
-    return detail.replace(/<span style='color: white;'>/g, '<span style="color: white; font-weight: 700;">');
+    return detail.replace(/<span style='color: white;'>/g, '<span class="text-sky-300 font-bold">');
   };
 
   return (
@@ -48,7 +48,7 @@ const ExperienceDetails = ({ experience }) => {
         {experience.details.map((detail, index) => (
           <li
             key={`experience-detail-${index}`}
-            className="text-slate-400 font-normal text-[10px] xs:text-[14px] md:text-[18px] lg:text-[22px] xl:text-[28px] lg:leading-[30px]"
+            className="text-slate-200 font-normal text-[10px] xs:text-[14px] md:text-[18px] lg:text-[22px] xl:text-[28px] lg:leading-[30px]"
             dangerouslySetInnerHTML={{ __html: processDetail(detail) }}
           />
         ))}
