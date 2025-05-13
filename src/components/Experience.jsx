@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 import { experiences } from "../data";
 import { SectionWrapper } from "../hoc";
@@ -54,6 +55,11 @@ const ExperienceDetails = ({ experience }) => {
 const Experience = () => {
   const [selectedJob, setSelectedJob] = useState(experiences[0]);
   const [isMobile, setIsMobile] = useState(false);
+  const controls = useAnimation();
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: false, // This ensures the animation triggers every time
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,9 +74,22 @@ const Experience = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (inView) {
+      controls.start("show");
+    } else {
+      controls.start("hidden");
+    }
+  }, [controls, inView]);
+
   return (
     <div className="sm:my-20">
-      <motion.div variants={textVariant()}>
+      <motion.div 
+        ref={ref}
+        variants={textVariant()}
+        initial="hidden"
+        animate={controls}
+      >
         <h2 className={`${styles.sectionText} text-center`}>
           Experience
         </h2>
@@ -97,4 +116,4 @@ const Experience = () => {
   );
 };
 
-export default SectionWrapper(Experience, "portfolio");
+export default SectionWrapper(Experience, "experience");

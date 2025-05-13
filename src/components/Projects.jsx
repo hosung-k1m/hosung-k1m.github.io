@@ -2,7 +2,7 @@ import { motion, useAnimation } from "framer-motion";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { portfolio } from "../data";
+import { projects } from "../data";
 import { SectionWrapper } from "../hoc";
 import { styles } from "../styles";
 import { fadeIn, textVariant } from "../utils/motion";
@@ -16,11 +16,14 @@ const ProjectCard = ({
   const controls = useAnimation();
   const { ref, inView } = useInView({
     threshold: 0.1,
+    triggerOnce: false,
   });
 
   useEffect(() => {
     if (inView) {
       controls.start("show");
+    } else {
+      controls.start("hidden");
     }
   }, [controls, inView]);
 
@@ -50,15 +53,34 @@ const ProjectCard = ({
   );
 };
 
-const Portfolio = () => {
+const Projects = () => {
+  const controls = useAnimation();
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: false,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("show");
+    } else {
+      controls.start("hidden");
+    }
+  }, [controls, inView]);
+
   return (
     <div className='text-center md:text-left md:px-20 lg:px-40'>
-      <motion.div variants={textVariant()}>
+      <motion.div 
+        ref={ref}
+        variants={textVariant()}
+        initial="hidden"
+        animate={controls}
+      >
         <h2 className={`${styles.sectionText}`}>Projects</h2>
       </motion.div>
 
       <div className='mt-10 md:mt-20 flex flex-col gap-10 md:gap-20'>
-        {portfolio.map((project, index) => (
+        {projects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}
       </div>
@@ -66,4 +88,4 @@ const Portfolio = () => {
   );
 };
 
-export default SectionWrapper(Portfolio, "portfolio");
+export default SectionWrapper(Projects, "projects"); 

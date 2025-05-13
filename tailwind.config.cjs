@@ -25,15 +25,10 @@ module.exports = {
           '0%, 40%': { transform: 'translate3d(0, 100%, 0) rotateX(-90deg)' },
           '60%, 100%': { transform: 'translate3d(0, 0%, 0) rotateX(0deg)' },
         },
-        scroll: {
-          "0%": { transform: "translateX(100%)" },
-          "100%": { transform: "translateX(-100%)" },
-        }
       },
       animation: {
         textRotate1: 'textRotate1 2.4s infinite alternate',
         textRotate2: 'textRotate2 2.4s infinite alternate',
-        scroll: "scroll 15s linear infinite",
       },
       fontSize: {
         title: '2rem',

@@ -22,7 +22,7 @@ const Spaceman = ({ scale, position }) => {
             ref={spacemanRef}
             position={position}
             scale={scale}
-            rotation={[0, 0, 0]}
+            rotation={[0, -Math.PI / 9, 0]}
         >
             <primitive object={scene} />
         </mesh>
@@ -30,26 +30,27 @@ const Spaceman = ({ scale, position }) => {
 };
 
 const SpacemanCanvas = ({ scrollContainer }) => {
-    const [scale, setScale] = useState([2, 2, 2]); // Increased scale
-    const [position, setPosition] = useState([0.2, -0.7, 0]);
+    const [scale, setScale] = useState([2, 2, 2]);
+    const [position, setPosition] = useState([0, 0, 0]);
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 768) {
-                setScale([1.5, 1.5, 1.5]); // Increased scale for smaller screens
-                setPosition([0.2, -0.1, 0]);
-            } else if (window.innerWidth < 1024) {
-                setScale([2, 2, 2]); // Increased scale for medium screens
-                setPosition([0.2, -0.3, 0]);
-            } else if (window.innerWidth < 1280) {
-                setScale([2, 2, 2]); // Increased scale for larger screens
-                setPosition([0.2, -0.4, 0]);
-            } else if (window.innerWidth < 1536) {
-                setScale([2, 2, 2]); // Increased scale for larger screens
-                setPosition([0.2, -0.5, 0]);
-            } else {
-                setScale([2, 2, 2]); // Increased scale for largest screens
-                setPosition([0.2, -0.7, 0]);
+            const width = window.innerWidth;
+            if (width < 640) { // xs
+                setScale([1.2, 1.2, 1.2]);
+                setPosition([1.25, -1.6, 0]);
+            } else if (width < 768) { // sm
+                setScale([1.25, 1.25, 1.25]);
+                setPosition([1.25, -1.6, 0]);
+            } else if (width < 1024) { // md
+                setScale([1.25, 1.25, 1.25]);
+                setPosition([1.2, -1.6, 0]);
+            } else if (width < 2000) { // lg
+                setScale([1.35, 1.35, 1.35]);
+                setPosition([1.2, -1.6, 0]);
+            } else { // xl and above
+                setScale([1.4, 1.4, 1.4]);
+                setPosition([0.6, -1.6, 0]);
             }
         };
 
@@ -63,8 +64,13 @@ const SpacemanCanvas = ({ scrollContainer }) => {
 
     return (
         <Canvas
-            className={`w-full h-screen bg-transparent z-10`}
-            camera={{ near: 0.1, far: 1000 }}
+            className="w-full h-full bg-transparent z-10"
+            camera={{ 
+                position: [0, 0, 5],
+                fov: 45,
+                near: 0.1,
+                far: 1000
+            }}
         >
             <Suspense fallback={<CanvasLoader />}>
                 <directionalLight position={[1, 1, 1]} intensity={1} />

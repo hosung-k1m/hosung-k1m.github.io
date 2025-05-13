@@ -37,8 +37,10 @@ const Hero = ({ scrollContainer }) => {
       </div>
 
       {/* SpacemanCanvas - its positioning might need review later if it's off */}
-      <div className="absolute top-64 left-60 w-full h-full z-20 mt-10">
-        <SpacemanCanvas scrollContainer={scrollContainer} />
+      <div className="absolute inset-0 w-full h-full z-20 flex items-center justify-center">
+        <div className="relative w-full h-full max-w-7xl mx-auto">
+          <SpacemanCanvas scrollContainer={scrollContainer} />
+        </div>
       </div>
     </section>
   );

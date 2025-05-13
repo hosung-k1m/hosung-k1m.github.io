@@ -38,7 +38,9 @@ const Navbar = ({ scrollContainer }) => {
   }, [scrollContainer]);
 
   useEffect(() => {
+    // Get all section elements with IDs
     const sections = document.querySelectorAll("div[id]");
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -48,11 +50,14 @@ const Navbar = ({ scrollContainer }) => {
         });
       },
       {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50% 0px'
+        threshold: 0.1, // Lowered threshold to make detection more sensitive
+        rootMargin: '0px 0px -40% 0px' // Adjusted to trigger earlier when scrolling down
       }
     );
 
+    // Log the sections being observed for debugging
+    console.log('Observing sections:', Array.from(sections).map(s => s.id));
+    
     sections.forEach((section) => observer.observe(section));
 
     return () => sections.forEach((section) => observer.unobserve(section));
