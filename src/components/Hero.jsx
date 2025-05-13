@@ -2,24 +2,41 @@ import { SpacemanCanvas } from ".";
 import Position from "./Position";
 
 const Hero = ({ scrollContainer }) => {
+  // Estimate for the image's aspect ratio (e.g., 16:9 -> 9/16 = 0.5625)
+  const aspectRatioPaddingTop = '56.25%'; // Adjust if your image has a different aspect ratio
+
+  // Estimated relative coordinates and size of the "blue window" within the image
+  // These will likely need fine-tuning
+  const textBlockStyle = {
+    top: '48%',          // Lowered a bit, % from top of image
+    left: '36%',         // % from left of image
+    width: '56%',        // % width of image
+    // height: '40%',    // Optional: % height of image, or let content define height
+  };
+
   return (
     <section className="relative">
-      <div className='absolute top-[24%] sm:top-[29%] lg:top-[34%] left-[5%] w-full mx-auto lg:pl-[38vh] lg:pr-[30vh] xl:pl-96 xl:pr-72 2xl:px-40 3xl:px-60 flex flex-col lg:flex-row items-start z-10'>
-        <div className="flex-1 lg:mb-0">
-          <h1 className='font-medium text-white text-[40px] xs:text-[50px] sm:text-[68px] md:text-[80px] lg:text-[100px] 2xl:text-[180px] leading-[110px] 2xl:leading-[160px]'>
-             Hosung Kim
-          </h1>
-          <Position />
-        </div>
-        {/* <div className="flex-1 flex justify-start lg:justify-end mt-4 sm:mt-14 ml-8 xs:ml-[-4vh] sm:ml-[-17vh] md:ml-[-26vh] lg:mt-10 2xl:mt-0">
-          <div className='font-bold text-[20px] sm:text-[30px] md:text-[36px] 2xl:text-[46px] sm:leading-[40px] md:leading-[50px] 2xl:leading-[60px] streaky-glow max-w-sm 2xl:max-w-lg text-white text-left'>
-          something here
+      {/* Aspect Ratio Container for the background image and text */}
+      <div className="relative w-full" style={{ paddingTop: aspectRatioPaddingTop }}>
+        {/* Background Image */}
+        <img
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          src="./parallax/room.jpeg"
+          alt="Office background"
+        />
+
+        {/* Text Container (Hosung Kim & Position) - positioned relative to the aspect ratio container */}
+        <div
+          className='absolute flex flex-col items-start z-10 p-1 xs:p-2 sm:p-3 md:p-4' // Reduced padding slightly for smaller breakpoints
+          style={textBlockStyle}
+        >
+          <div className="w-full text-left"> {/* Ensure child text alignment */}
+            <Position />
           </div>
-        </div> */}
+        </div>
       </div>
 
-      <img className="h-auto w-auto" src="./parallax/room.jpeg" alt="" />
-
+      {/* SpacemanCanvas - its positioning might need review later if it's off */}
       <div className="absolute top-64 left-60 w-full h-full z-20 mt-10">
         <SpacemanCanvas scrollContainer={scrollContainer} />
       </div>

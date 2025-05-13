@@ -8,7 +8,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className='relative z-0 bg-primary'>
-        <Navbar />
+        <Navbar scrollContainer={wrapperRef} />
         <div className='wrapper' ref={wrapperRef}>
           <div id="hero" className='z-10'>
             <Hero scrollContainer={wrapperRef} />
@@ -22,9 +22,9 @@ const App = () => {
           <div id="experience" className='relative z-30 bg-blue-900'>
             <Experience />
           </div>
-          <div id="contact" className='relative z-30 bg-blue-900'>
+          {/* <div id="contact" className='relative z-30 bg-blue-900'>
             <Contact />
-          </div>
+          </div> */}
         </div>
       </div>
     </BrowserRouter>

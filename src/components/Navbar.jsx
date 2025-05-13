@@ -1,22 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { close, menu } from "../assets";
 import { navLinks } from "../data";
 
-const Navbar = () => {
+const Navbar = ({ scrollContainer }) => {
   const [active, setActive] = useState("hero");
   const [toggle, setToggle] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const scrollThreshold = 100;
 
   useEffect(() => {
+    const scrollElement = scrollContainer.current;
+    if (!scrollElement) return;
+
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setScrolled(scrollTop > 100);
+      const currentScrollY = scrollElement.scrollTop;
+      const previousScrollY = lastScrollY.current;
+
+      if (currentScrollY > scrollThreshold) {
+        if (currentScrollY > previousScrollY) {
+          setVisible(false);
+        } else if (currentScrollY < previousScrollY) {
+          setVisible(true);
+        }
+      } else {
+        setVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    scrollElement.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      scrollElement.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollContainer]);
 
   useEffect(() => {
     const sections = document.querySelectorAll("div[id]");
@@ -41,69 +60,45 @@ const Navbar = () => {
 
   return (
     <nav
-      className="w-full flex items-center bg-gradient-to-b from-black sm:bg-none p-8 sm:px-16 sm:py-10 fixed z-40 pointer-events-none"
+      className={`flex items-center bg-black p-2 sm:p-4 fixed top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-8 z-40 rounded-full w-fit sm:w-auto max-w-3xl transition-transform duration-300 ease-in-out ${
+        visible ? 'translate-y-0' : '-translate-y-[150%]'
+      }`}
     >
-      <div className='w-full flex justify-between items-start mx-auto'>
-        <Link
-          to='/'
-          className='flex items-start'
-          onClick={() => {
-            setActive("hero");
-            window.scrollTo(0, 0);
-          }}
-        >
-          <p className='text-white text-[26px] lg:text-[36px] font-bold pointer-events-auto cursor-pointer flex'>
-            HK
-          </p>
-        </Link>
-
-        <ul className='list-none hidden sm:flex flex-col gap-5'>
+      <div className='flex items-center mx-auto'>
+        <ul className='list-none hidden sm:flex flex-row gap-8 items-center'>
           {navLinks.map((nav) => (
             <li
               key={nav.id}
               className={`relative flex items-center ${
                 active === nav.id ? "text-white" : "text-slate-500"
-              } hover:text-white text-[18px] lg:text-[24px] font-bold pointer-events-auto cursor-pointer`}
+              } hover:text-white text-[16px] lg:text-[18px] font-bold pointer-events-auto cursor-pointer`}
               onClick={() => setActive(nav.id)}
             >
               {active === nav.id && (
-                <div className="fixed right-10 w-2 h-6 lg:h-8 bg-quaternary"></div>
+                <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-quaternary"></div>
               )}
               <a href={`#${nav.id}`}>{nav.title}</a>
             </li>
           ))}
         </ul>
 
-        <div className='sm:hidden flex flex-1 justify-end items-center'>
-          <img
-            src={toggle ? close : menu}
-            alt='menu'
-            className='w-[28px] h-[28px] object-contain pointer-events-auto cursor-pointer'
-            onClick={() => setToggle(!toggle)}
-          />
-
-          <div
-            className={`${
-              !toggle ? "hidden" : "flex"
-            } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-30 rounded-xl`}
-          >
-            <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
-              {navLinks.map((nav) => (
-                <li
-                  key={nav.id}
-                  className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                    active === nav.id ? "text-quaternary" : "text-secondary"
-                  }`}
-                  onClick={() => {
-                    setToggle(!toggle);
-                    setActive(nav.id);
-                  }}
-                >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className='sm:hidden flex flex-1 justify-center items-center'>
+          <ul className='list-none flex flex-row gap-3 items-center'>
+            {navLinks.map((nav) => (
+              <li
+                key={nav.id}
+                className={`relative flex items-center ${
+                  active === nav.id ? "text-white" : "text-slate-500"
+                } hover:text-white text-[12px] font-bold pointer-events-auto cursor-pointer`}
+                onClick={() => setActive(nav.id)}
+              >
+                {active === nav.id && (
+                  <div className="absolute -bottom-0.5 left-0 w-full h-0.5 bg-quaternary"></div>
+                )}
+                <a href={`#${nav.id}`}>{nav.title}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </nav>
