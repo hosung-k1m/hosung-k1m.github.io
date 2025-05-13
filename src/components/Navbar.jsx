@@ -65,7 +65,7 @@ const Navbar = ({ scrollContainer }) => {
 
   return (
     <nav
-      className={`flex items-center bg-black p-2 sm:p-4 fixed top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-8 z-40 rounded-full w-fit sm:w-auto max-w-3xl transition-transform duration-300 ease-in-out ${
+      className={`flex items-center bg-black p-1 sm:p-4 fixed top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-8 z-40 rounded-full w-fit sm:w-auto max-w-3xl transition-transform duration-300 ease-in-out ${
         visible ? 'translate-y-0' : '-translate-y-[150%]'
       }`}
     >
@@ -88,13 +88,13 @@ const Navbar = ({ scrollContainer }) => {
         </ul>
 
         <div className='sm:hidden flex flex-1 justify-center items-center'>
-          <ul className='list-none flex flex-row gap-3 items-center'>
+          <ul className='list-none flex flex-row gap-2 items-center py-1'>
             {navLinks.map((nav) => (
               <li
                 key={nav.id}
                 className={`relative flex items-center ${
                   active === nav.id ? "text-white" : "text-slate-500"
-                } hover:text-white text-[12px] font-bold pointer-events-auto cursor-pointer`}
+                } hover:text-white text-[11px] font-bold pointer-events-auto cursor-pointer whitespace-nowrap`}
                 onClick={() => setActive(nav.id)}
               >
                 {active === nav.id && (

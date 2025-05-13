@@ -12,22 +12,22 @@ const ExperienceCard = ({ experience, onClick, isActive, isMobile }) => {
     <div
       onClick={onClick}
       className={`cursor-pointer sm:mb-5 p-5 max-w-xl relative sm:text-left text-center ${
-        isMobile ? "text-quaternary" : ""
+        isMobile ? "text-sky-300" : ""
       }`}
     >
       {(isActive || isMobile) && (
-        <div className="absolute left-0 top-0 bottom-0 w-3 md:w-5 bg-tertiary my-6 sm:block hidden"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-3 md:w-5 bg-sky-400 my-6 sm:block hidden"></div>
       )}
       <h3
         className={`text-xl lg:text-2xl xl:text-3xl font-bold sm:pl-8 ${
-          isActive || isMobile ? "text-quaternary" : "text-slate-600"
+          isActive || isMobile ? "text-sky-300" : "text-slate-300"
         }`}
       >
         {experience.title}
       </h3>
       <p
         className={`text-md lg:text-lg xl:text-2xl sm:font-medium pt-2 sm:pl-8 ${
-          isActive || isMobile ? "text-white" : "text-slate-600"
+          isActive || isMobile ? "text-white" : "text-slate-300"
         }`}
       >
         {experience.company_name} | {experience.date}
@@ -37,14 +37,19 @@ const ExperienceCard = ({ experience, onClick, isActive, isMobile }) => {
 };
 
 const ExperienceDetails = ({ experience }) => {
+  // Process the details to make highlighted words bold
+  const processDetail = (detail) => {
+    return detail.replace(/<span style='color: white;'>/g, '<span style="color: white; font-weight: 700;">');
+  };
+
   return (
     <div className="mt-5">
       <ul className="max-w-7xl list-none space-y-8 border-4 lg:border-8 rounded-xl lg:rounded-3xl p-6">
         {experience.details.map((detail, index) => (
           <li
             key={`experience-detail-${index}`}
-            className="text-slate-500 font-semibold text-[10px] xs:text-[14px] md:text-[18px] lg:text-[22px] xl:text-[28px] lg:leading-[30px]"
-            dangerouslySetInnerHTML={{ __html: detail }}
+            className="text-slate-400 font-normal text-[10px] xs:text-[14px] md:text-[18px] lg:text-[22px] xl:text-[28px] lg:leading-[30px]"
+            dangerouslySetInnerHTML={{ __html: processDetail(detail) }}
           />
         ))}
       </ul>
@@ -89,13 +94,14 @@ const Experience = () => {
         variants={textVariant()}
         initial="hidden"
         animate={controls}
+        className="mb-0"
       >
         <h2 className={`${styles.sectionText} text-center`}>
           Experience
         </h2>
       </motion.div>
 
-      <div className="relative mt-10 md:mt-20 md:p-20 flex flex-col items-center sm:flex-row sm:items-start">
+      <div className="relative mt-1 md:mt-2 md:px-20 md:pb-20 md:pt-4 flex flex-col items-center sm:flex-row sm:items-start">
         <div className="flex flex-col z-10 sm:w-auto sm:w-full">
           {experiences.map((experience, index) => (
             <ExperienceCard

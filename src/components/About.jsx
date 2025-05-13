@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { fadeIn, textVariant } from "../utils/motion";
+import { styles } from "../styles";
 import hikingImage from "../assets/hiking.jpeg";
 import roseImage from "../assets/rose.jpeg";
 import runningImage from "../assets/running.jpeg";
@@ -51,7 +52,7 @@ const AboutMe = () => {
           variants={textVariant()}
           initial="hidden"
           animate={controls}
-          className="text-4xl font-bold text-white mb-6 text-center">
+          className={`${styles.sectionText} mb-6 text-center`}>
           About Me
         </motion.h2>
         <motion.div 

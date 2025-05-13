@@ -45,7 +45,7 @@ const experiences = [
   {
     title: "Cybersecurity Intern",
     company_name: "OSA Technology Partners",
-    date: "June - August 2022",
+    date: "June 2022 - August 2022",
     details: [
       "Integrated JumpCloud with <span style='color: white;'>AWS </span> using <span style='color: white;'>Lambda, Step Functions, and S3</span> to automate device management workflows",
       "Secured API credentials via <span style='color: white;'>Secrets Manager</span> and built data triggers to analyze JumpCloud Insights",
