@@ -12,6 +12,7 @@ const ProjectCard = ({
   name,
   description,
   image,
+  link,
 }) => {
   const controls = useAnimation();
   const { ref, inView } = useInView({
@@ -47,6 +48,16 @@ const ProjectCard = ({
 
       <div className={`w-full md:w-2/5 px-6 md:p-16 flex flex-col justify-center ${isEven ? "text-left md:text-left" : "text-left md:text-right"}`}>
         <h3 className='text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl lg:text-6xl leading-tight'>{name}</h3>
+        {link && (
+          <a 
+            href={link} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className='mt-2 text-white text-sm sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-bold'
+          >
+            View Project
+          </a>
+        )}
         <p className='mt-4 text-secondary text-sm sm:text-xs md:text-sm lg:text-md xl:text-lg 2xl:text-xl'>{description}</p>
       </div>
     </motion.div>

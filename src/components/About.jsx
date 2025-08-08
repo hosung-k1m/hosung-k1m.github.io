@@ -78,7 +78,7 @@ const AboutMe = () => {
           </div>
           <div className="flex-1">
             <p className="text-white text-lg">
-            Hi, I'm Hosung Kim! A software developer who loves building things that make life a little easier. I'm a student at Rice University, studying Computer Science and Cognitive Science, always curious and constantly learning — especially when it comes to systems and real-world tech. Whether it's diving into a new API or spinning up something from scratch, I enjoy the process just as much as the result. Take a look around, and feel free to reach out if something catches your eye!
+            Hi, I'm Hosung Kim! A software developer who loves building things that make life a little easier. I'm a student at Rice University, studying Computer Science and Cognitive Science, always curious and constantly learning — especially when it comes to systems, cloud computing, and infrastructure. I enjoy working with AWS to design and deploy scalable solutions, from spinning up backend services to managing infrastructure as code. Whether it's diving into a new API, architecting cloud-based systems, or building something from scratch, I enjoy the process just as much as the result. Take a look around, and feel free to reach out if something catches your eye!
             </p>
           </div>
         </motion.div>
